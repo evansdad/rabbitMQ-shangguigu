@@ -22,7 +22,7 @@ public class Worker01 {
         CancelCallback cancelCallback = consumerTag -> {
             System.out.println(consumerTag+"消费者取消消费借口回调逻辑");
         };
-        System.out.println("c1wait....");
+        System.out.println("c2 wait....");
 
         channel.basicConsume(QUEUE_NAME, true, deliverCallback, cancelCallback);
     }
