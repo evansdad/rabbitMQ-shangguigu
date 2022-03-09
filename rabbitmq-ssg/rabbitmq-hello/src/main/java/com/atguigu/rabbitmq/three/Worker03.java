@@ -1,12 +1,9 @@
 package com.atguigu.rabbitmq.three;
 
 import com.atguigu.rabbitmq.utils.RabbitMQUtils;
+import com.atguigu.rabbitmq.utils.SleepUtils;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.DeliverCallback;
-
-import java.io.IOException;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.TimeoutException;
 
 public class Worker03 {
     // 队列名称
@@ -18,11 +15,7 @@ public class Worker03 {
 
         DeliverCallback deliverCallback = (consumerTag, message) -> {
             // 等待一秒
-            try {
-                TimeUnit.SECONDS.sleep(1);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+            SleepUtils.sleep(1);
             System.out.println("接受到的消息是:"+new String(message.getBody()));
 
             //进行手动应答
@@ -36,9 +29,8 @@ public class Worker03 {
         channel.basicQos(prefetchCount);
         // 采用手动应答
         boolean autoAck = false;
-        channel.basicConsume(TASK_QUEUE_NAME,autoAck,deliverCallback,(consumerTag) -> {
+        channel.basicConsume(TASK_QUEUE_NAME, autoAck,deliverCallback,(consumerTag) -> {
             System.out.println(consumerTag+"消费者取消消费接口回调逻辑");
         });
     }
-
 }

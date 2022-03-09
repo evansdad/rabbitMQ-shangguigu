@@ -3,6 +3,7 @@ package com.atguigu.rabbitmq.three;
 import com.atguigu.rabbitmq.utils.RabbitMQUtils;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.MessageProperties;
+import org.apache.commons.io.filefilter.TrueFileFilter;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -25,10 +26,8 @@ public class Task02 {
         Scanner scanner = new Scanner(System.in);
         while (scanner.hasNext()){
             String message = scanner.next();
-            channel.basicPublish("",TASK_QUEUE_NAME, MessageProperties.PERSISTENT_BASIC,message.getBytes(StandardCharsets.UTF_8));
+            channel.basicPublish("",TASK_QUEUE_NAME, MessageProperties.PERSISTENT_TEXT_PLAIN,message.getBytes(StandardCharsets.UTF_8));
             System.out.println("生产者发出消息："+message);
         }
-
     }
-
 }

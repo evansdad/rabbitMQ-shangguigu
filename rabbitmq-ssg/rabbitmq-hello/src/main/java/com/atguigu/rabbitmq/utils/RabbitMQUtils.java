@@ -19,3 +19,5 @@ public class RabbitMQUtils {
         return channel;
     }
 }
+
+
